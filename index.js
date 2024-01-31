@@ -8,6 +8,7 @@ inquirer
       type: "input",
       message: "Enter your text here, no more than 3 characters",
       name: "text",
+      // Makes sure the user inputs the correct amount of characters
       validate: (input) => {
         if (input.length > 3) {
           return "Must be no more than 3 characters"
@@ -33,6 +34,7 @@ inquirer
     },
   ])
   .then((data) => {
+    // Sets the variable of shape, and assigns it based on user input
     let shape;
     if (data.shape === "Circle") {
       shape = new Circle()
@@ -41,10 +43,12 @@ inquirer
     } else {
       shape = new Triangle()
     }
+    // Uses input from user to create the logo (text, text color and shape color)
     shape.setColor(data.text_color)
     shape.setText(data.text)
     shape.setShapeColor(data.shape_color)
 
+    // Writes the file
     fs.writeFile("logo.svg", shape.render(), (err) => {
       if (err) throw err;
       console.log("Generated logo.svg")
